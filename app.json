@@ -1,0 +1,12 @@
+{
+  "name": "AloethereReactNative",
+  "displayName": "AloethereReactNative",
+  "expo": {
+    "name": "AloethereReactNative",
+    "slug": "AloethereReactNative",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
