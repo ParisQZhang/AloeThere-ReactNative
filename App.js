@@ -1,7 +1,7 @@
 import React, { Component, useState, useEffect } from 'react';
 import moment from 'moment';
 import HomeScreen from './HomeScreen';
-import Search from './Search';
+import AllPlants from './AllPlants';
 import ApiService from './ApiService.js';
 import { Ionicons } from '@expo/vector-icons';
 // import Notification from './Notification';
@@ -33,6 +33,9 @@ export default function App() {
   useEffect(() => {
     let waterOrNot = shouldIWater();
     getMyPlants();
+    ApiService.getPlants().then((allPlants) => {
+      setPlants(allPlants);
+    });
     setShouldWater(waterOrNot);
   }, []);
 
@@ -47,35 +50,6 @@ export default function App() {
     });
   };
 
-  const createMyPlant = (nickName, bought, lastWatered, commonName, id) => {
-    let data = { nickName, bought, lastWatered, commonName, id };
-    ApiService.postMyPlant(data).then((newPlant) => {
-      const newPlants = [...myPlants, newPlant];
-      setMyPlants(newPlants);
-    });
-  };
-
-  const filterPlants = (
-    difficulty,
-    type,
-    light,
-    water,
-    humidity,
-    airPurifying
-  ) => {
-    ApiService.getFilterPlants(
-      difficulty,
-      type,
-      light,
-      water,
-      humidity,
-      airPurifying
-    ).then((data) => {
-      if (data && data.length !== 0) setPlants(data);
-      else alert("Sorry, we can't find a matching plant");
-    });
-  };
-
   const updateMyPlant = (id, lastWatered) => {
     let data = { id, lastWatered };
     ApiService.editMyPlant(data).then(() => {
@@ -87,10 +61,6 @@ export default function App() {
       });
       setMyPlants(newPlants);
     });
-  };
-
-  const emptyFilter = () => {
-    setPlants([]);
   };
 
   const deleteMyPlant = (id) => {
@@ -121,10 +91,10 @@ export default function App() {
 
             if (route.name === 'Home') {
               iconName = 'ios-home';
-            } else if (route.name === 'My Plants') {
+            } else if (route.name === 'All Plants') {
               iconName = 'ios-list';
-            } else if (route.name === 'Add Plant') {
-              iconName = 'ios-add';
+            } else if (route.name === 'My Plants') {
+              iconName = 'ios-leaf';
             }
             return <Ionicons name={iconName} size={size} color={color} />;
           },
@@ -137,15 +107,9 @@ export default function App() {
         <Tab.Screen name="Home">
           {(props) => <HomeScreen {...props} loading={loading} />}
         </Tab.Screen>
-        <Tab.Screen name="Add Plant">
+        <Tab.Screen name="All Plants">
           {(props) => (
-            <Search
-              {...props}
-              shouldIWater={shouldIWater}
-              plants={plants}
-              filterPlants={filterPlants}
-              emptyFilter={emptyFilter}
-            />
+            <AllPlants {...props} shouldIWater={shouldIWater} plants={plants} />
           )}
         </Tab.Screen>
         <Tab.Screen name="My Plants">

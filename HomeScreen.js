@@ -25,7 +25,7 @@ const HomeScreen = ({ navigation }) => {
         <Button
           type="button"
           color="white"
-          onPress={() => navigation.navigate('Add Plant')}
+          onPress={() => navigation.navigate('All Plants')}
           title="Find your next plant"
         >
           Find your next plant

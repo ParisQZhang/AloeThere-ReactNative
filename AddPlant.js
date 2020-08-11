@@ -12,8 +12,8 @@ const AddPlant = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <Button
-        title="My plants"
-        onPress={() => navigation.navigate('MyPlants')}
+        title="All plants"
+        onPress={() => navigation.navigate('AllPlants')}
       />
     </View>
   );
