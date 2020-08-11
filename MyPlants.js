@@ -20,7 +20,7 @@ function MyPlants({
         justifyContent: 'space-around',
       }}
     >
-      {myPlants ? (
+      {myPlants && myPlants.length !== 0 ? (
         <View>
           <Text>Welcome back to your plant farm!</Text>
           <Text>Check the watering schedule</Text>

@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View, Button, Image } from 'react-native';
 import greenImg from './assets/greenHomepagenarrow.png';
 
-const HomeScreen = () => {
+const HomeScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <View style={styles.title}>
@@ -14,7 +14,7 @@ const HomeScreen = () => {
       <View style={styles.button}>
         <Button
           type="button"
-          onPress={() => navigation.navigate([MyPlants])}
+          onPress={() => navigation.navigate('MyPlants')}
           title="Check on them"
         >
           <Text style={styles.buttonText}>Check on them</Text>
@@ -23,7 +23,7 @@ const HomeScreen = () => {
       <View style={styles.button}>
         <Button
           type="button"
-          onPress={() => navigation.navigate([AddPlant])}
+          onPress={() => navigation.navigate('AddPlant')}
           title="Find your next plant"
         >
           Find your next plant
@@ -34,11 +34,6 @@ const HomeScreen = () => {
       <Text style={styles.quote}>
         "Like people, plants respond to extra attention"
       </Text>
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Button
-        title="My plants"
-        onPress={() => navigation.navigate('MyPlants')}
-      />
     </View>
   );
 };
