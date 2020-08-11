@@ -43,6 +43,7 @@ export default function App() {
 
   const getMyPlants = () => {
     ApiService.getMyPlants().then((data) => {
+      console.log(data);
       setMyPlants(data);
     });
   };

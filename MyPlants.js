@@ -13,17 +13,29 @@ function MyPlants({
   openModal,
   closeModal,
 }) {
+  const styles = StyleSheet.create({
+    container: {
+      backgroundColor: 'white',
+      alignItems: 'center',
+      paddingTop: 100,
+    },
+    title: {
+      paddingBottom: 20,
+      fontWeight: 'bold',
+      fontSize: 22,
+    },
+    paraText: {
+      paddingBottom: 20,
+      fontSize: 14,
+    },
+  });
+
   return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: 'space-around',
-      }}
-    >
+    <View style={styles.container}>
       {myPlants && myPlants.length !== 0 ? (
-        <View>
-          <Text>Welcome back to your plant farm!</Text>
-          <Text>Check the watering schedule</Text>
+        <View style={styles.container}>
+          <Text style={styles.title}>Welcome back to your plant fam!</Text>
+          <Text style={styles.paraText}>Check the watering schedule</Text>
           <MyPlantList
             myPlants={myPlants}
             updateMyPlant={updateMyPlant}
