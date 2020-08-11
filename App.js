@@ -3,7 +3,7 @@ import moment from 'moment';
 import HomeScreen from './HomeScreen';
 import Search from './Search';
 import ApiService from './ApiService.js';
-import Icon from 'react-native-vector-icons/Ionicons';
+import { Ionicons } from '@expo/vector-icons';
 // import Notification from './Notification';
 import AddPlant from './AddPlant';
 import MyPlants from './MyPlants';
@@ -43,7 +43,6 @@ export default function App() {
 
   const getMyPlants = () => {
     ApiService.getMyPlants().then((data) => {
-      console.log(data);
       setMyPlants(data);
     });
   };
@@ -114,15 +113,31 @@ export default function App() {
   }
 
   return (
-    /*     <Stack.Screen name="Home">
-  {props => <HomeScreen {...props} extraData={someData} />}
-</Stack.Screen> */
     <NavigationContainer>
-      <Tab.Navigator>
+      <Tab.Navigator
+        screenOptions={({ route }) => ({
+          tabBarIcon: ({ color, size }) => {
+            let iconName;
+
+            if (route.name === 'Home') {
+              iconName = 'ios-home';
+            } else if (route.name === 'My Plants') {
+              iconName = 'ios-list';
+            } else if (route.name === 'Add Plant') {
+              iconName = 'ios-add';
+            }
+            return <Ionicons name={iconName} size={size} color={color} />;
+          },
+        })}
+        tabBarOptions={{
+          activeTintColor: 'green',
+          inactiveTintColor: 'gray',
+        }}
+      >
         <Tab.Screen name="Home">
           {(props) => <HomeScreen {...props} loading={loading} />}
         </Tab.Screen>
-        <Tab.Screen name="Plants">
+        <Tab.Screen name="Add Plant">
           {(props) => (
             <Search
               {...props}
@@ -133,7 +148,7 @@ export default function App() {
             />
           )}
         </Tab.Screen>
-        <Tab.Screen name="MyPlants">
+        <Tab.Screen name="My Plants">
           {(props) => (
             <MyPlants
               {...props}
@@ -148,15 +163,6 @@ export default function App() {
             />
           )}
         </Tab.Screen>
-        {/*   <Tab.Screen name="AddPlant">
-          {(props) => (
-            <AddPlant
-              {...props}
-              createMyPlant={createMyPlant}
-              shouldWater={shouldWater}
-            />
-          )}
-        </Tab.Screen> */}
       </Tab.Navigator>
     </NavigationContainer>
   );

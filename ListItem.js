@@ -6,9 +6,10 @@ const ListItem = ({ item }) => {
     container: {
       backgroundColor: 'white',
       alignItems: 'center',
-      backgroundColor: 'white',
       margin: '5%',
       padding: 25,
+      display: 'flex',
+      flexDirection: 'row',
       shadowColor: '#000',
       shadowOffset: {
         width: 0,
@@ -16,6 +17,11 @@ const ListItem = ({ item }) => {
       },
       shadowOpacity: 0.25,
       shadowRadius: 3.84,
+    },
+    textContainer: {
+      alignItems: 'center',
+      padding: 20,
+      display: 'flex',
     },
 
     title: {
@@ -39,12 +45,14 @@ const ListItem = ({ item }) => {
   return (
     <TouchableOpacity key={item._id}>
       <View style={styles.container}>
-        <Text style={styles.title}>{item.nickName}</Text>
-        <Text style={styles.subTitle}>{item.commonName}</Text>
         <Image
           source={{ url: item.plantInfo.imgUrl }}
           style={styles.image}
         ></Image>
+        <View style={styles.textContainer}>
+          <Text style={styles.title}>{item.nickName}</Text>
+          <Text style={styles.subTitle}>{item.commonName}</Text>
+        </View>
       </View>
     </TouchableOpacity>
   );

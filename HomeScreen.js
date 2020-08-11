@@ -15,7 +15,7 @@ const HomeScreen = ({ navigation }) => {
         <Button
           type="button"
           color="white"
-          onPress={() => navigation.navigate('MyPlants')}
+          onPress={() => navigation.navigate('My Plants')}
           title="Check on them"
         >
           <Text style={styles.buttonText}>Check on them</Text>
@@ -25,7 +25,7 @@ const HomeScreen = ({ navigation }) => {
         <Button
           type="button"
           color="white"
-          onPress={() => navigation.navigate('AddPlant')}
+          onPress={() => navigation.navigate('Add Plant')}
           title="Find your next plant"
         >
           Find your next plant
