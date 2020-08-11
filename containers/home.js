@@ -9,27 +9,27 @@ import { StyleSheet, Text, View, Button, Image } from 'react-native';
 function Home({ shouldWater }) {
   return (
     <View style={styles.home}>
-      <View style={!shouldWater ? style.homeGreen : style.homeYellow}>
-        <Text style={!shouldWater ? style.homeTitleGreen : style.homeTitleYellow}>
-          <Text style={style.title_text}>Aloe there! </Text>
+      <View style={!shouldWater ? styles.homeGreen : styles.homeYellow}>
+        <Text style={!shouldWater ? styles.homeTitleGreen : styles.homeTitleYellow}>
+          <Text style={styles.title_text}>Aloe there! </Text>
           <GiDandelionFlower />
         </Text>
         {!shouldWater ? (
-          <Text style={style.home_subtitle}>
+          <Text style={styles.home_subtitle}>
             All your plants are watered and happy!
           </Text>
         ) : (
-          <Text style={style.home_subtitle}>Your plants need love (and water)!</Text>
+          <Text style={styles.home_subtitle}>Your plants need love (and water)!</Text>
         )}
         <Button
-          style={!shouldWater ? style.button_green : style.button_yellow}
+          style={!shouldWater ? styles.button_green : styles.button_yellow}
           type="button"
           onClick={() => history.push('/myplants')}
         >
           Check on them
         </Button>
         <Button
-          style={!shouldWater ? style.button_green : style.button_yellow}
+          style={!shouldWater ? styles.button_green : styles.button_yellow}
           type="button"
           onClick={() => history.push('/plants')}
         >
@@ -38,14 +38,14 @@ function Home({ shouldWater }) {
         <Image
           src={!shouldWater ? greenImg : yellowImg}
           alt="intro img"
-          style={style.home_img}
+          style={styles.home_img}
         />
-        <Text style={!shouldWater ? style.home_quote_green : style.home_quote_yellow}>
-          <Text style={!shouldWater ? style.quote_green : style.quote_yellow}>
+        <Text style={!shouldWater ? styles.home_quote_green : styles.home_quote_yellow}>
+          <Text style={!shouldWater ? styles.quote_green : styles.quote_yellow}>
             &ldquo;
           </Text>
           Like people, plants respond to extra attention.
-          <Text style={!shouldWater ? style.quote_green : style.quote_yellow}>
+          <Text style={!shouldWater ? styles.quote_green : styles.quote_yellow}>
             &rdquo;
           </Text>
         </Text>
