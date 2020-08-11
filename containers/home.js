@@ -12,7 +12,7 @@ function Home({ shouldWater }) {
       <View style={!shouldWater ? styles.homeGreen : styles.homeYellow}>
         <Text style={!shouldWater ? styles.homeTitleGreen : styles.homeTitleYellow}>
           <Text style={styles.title_text}>Aloe there! </Text>
-          <GiDandelionFlower />
+          <GiDandelionFlower size={32} />
         </Text>
         {!shouldWater ? (
           <Text style={styles.home_subtitle}>
@@ -24,14 +24,14 @@ function Home({ shouldWater }) {
         <Button
           style={!shouldWater ? styles.button_green : styles.button_yellow}
           type="button"
-          onClick={() => history.push('/myplants')}
+          onPress={() => history.push('/myplants')}
         >
           Check on them
         </Button>
         <Button
           style={!shouldWater ? styles.button_green : styles.button_yellow}
           type="button"
-          onClick={() => history.push('/plants')}
+          onPress={() => history.push('/plants')}
         >
           Find your next plant
         </Button>
