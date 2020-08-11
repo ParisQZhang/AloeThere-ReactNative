@@ -34,6 +34,11 @@ const HomeScreen = () => {
       <Text style={styles.quote}>
         "Like people, plants respond to extra attention"
       </Text>
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <Button
+        title="My plants"
+        onPress={() => navigation.navigate('MyPlants')}
+      />
     </View>
   );
 };
