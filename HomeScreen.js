@@ -3,10 +3,12 @@ import { StyleSheet, Text, View, Button } from 'react-native';
 
 const HomeScreen = ({ navigation }) => {
   return (
-    <Button
-      title="Go to Jane's profile"
-      onPress={() => navigation.navigate('Profile', { name: 'Jane' })}
-    />
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <Button
+        title="Go to Jane's profile"
+        onPress={() => navigation.navigate('MyPlants')}
+      />
+    </View>
   );
 };
 

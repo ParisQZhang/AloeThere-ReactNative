@@ -7,14 +7,17 @@ import ApiService from './ApiService.js';
 import AddPlant from './AddPlant';
 import MyPlants from './MyPlants';
 import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-const Stack = createStackNavigator();
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+
+const Tab = createBottomTabNavigator();
+
 export default function App() {
   const [plants, setPlants] = useState([]);
   const [myPlants, setMyPlants] = useState([]);
   const [shouldWater, setShouldWater] = useState(false);
   const [modalIsOpen, setIsOpen] = React.useState(false);
   const [loading, setLoading] = useState(true);
+
   const shouldIWater = () => {
     return myPlants.some((myPlant) => {
       const interval = myPlant.plantInfo.water.split(' ')[0];
@@ -31,15 +34,18 @@ export default function App() {
     getMyPlants();
     setShouldWater(waterOrNot);
   }, []);
+
   useEffect(() => {
     let waterOrNot = shouldIWater();
     setShouldWater(waterOrNot);
   }, [myPlants]);
+
   const getMyPlants = () => {
     ApiService.getMyPlants().then((data) => {
       setMyPlants(data);
     });
   };
+
   const createMyPlant = (nickName, bought, lastWatered, commonName, id) => {
     let data = { nickName, bought, lastWatered, commonName, id };
     ApiService.postMyPlant(data).then((newPlant) => {
@@ -47,6 +53,7 @@ export default function App() {
       setMyPlants(newPlants);
     });
   };
+
   const filterPlants = (
     difficulty,
     type,
@@ -67,6 +74,7 @@ export default function App() {
       else alert("Sorry, we can't find a matching plant");
     });
   };
+
   const updateMyPlant = (id, lastWatered) => {
     let data = { id, lastWatered };
     ApiService.editMyPlant(data).then(() => {
@@ -79,9 +87,11 @@ export default function App() {
       setMyPlants(newPlants);
     });
   };
+
   const emptyFilter = () => {
     setPlants([]);
   };
+
   const deleteMyPlant = (id) => {
     ApiService.deleteMyPlant(id).then(() => {
       const newPlants = myPlants.filter((myPlant) => {
@@ -92,22 +102,25 @@ export default function App() {
       setMyPlants(newPlants);
     });
   };
+
   function openModal() {
     setIsOpen(true);
   }
+
   function closeModal() {
     setIsOpen(false);
   }
+
   return (
     /*     <Stack.Screen name="Home">
   {props => <HomeScreen {...props} extraData={someData} />}
 </Stack.Screen> */
     <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Home">
+      <Tab.Navigator>
+        <Tab.Screen name="Home">
           {(props) => <HomeScreen {...props} loading={loading} />}
-        </Stack.Screen>
-        <Stack.Screen name="Plants">
+        </Tab.Screen>
+        <Tab.Screen name="Plants">
           {(props) => (
             <Search
               {...props}
@@ -117,8 +130,8 @@ export default function App() {
               emptyFilter={emptyFilter}
             />
           )}
-        </Stack.Screen>
-        <Stack.Screen name="MyPlants">
+        </Tab.Screen>
+        <Tab.Screen name="MyPlants">
           {(props) => (
             <MyPlants
               {...props}
@@ -132,8 +145,8 @@ export default function App() {
               closeModal={closeModal}
             />
           )}
-        </Stack.Screen>
-        <Stack.Screen name="AddPlant">
+        </Tab.Screen>
+        {/*   <Tab.Screen name="AddPlant">
           {(props) => (
             <AddPlant
               {...props}
@@ -141,8 +154,8 @@ export default function App() {
               shouldWater={shouldWater}
             />
           )}
-        </Stack.Screen>
-      </Stack.Navigator>
+        </Tab.Screen> */}
+      </Tab.Navigator>
     </NavigationContainer>
   );
 }
