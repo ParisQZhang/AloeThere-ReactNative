@@ -1,24 +1,27 @@
-import { StatusBar } from 'expo-status-bar';
-import React, { Component, useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-// import * as React from 'react';
+import React, { Component, useState, useEffect } from 'react';
+import moment from 'moment';
 import HomeScreen from './HomeScreen';
-import ProfileScreen from './ProfileScreen';
-import MyPlantsScreen from './MyPlantsScreen';
+import Search from './Search';
+import ApiService from './ApiService.js';
+import Icon from 'react-native-vector-icons/Ionicons';
+// import Notification from './Notification';
+import AddPlant from './AddPlant';
+import MyPlants from './MyPlants';
 import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-const Stack = createStackNavigator();
+const Tab = createBottomTabNavigator();
 
 export default function App() {
   const [plants, setPlants] = useState([]);
   const [myPlants, setMyPlants] = useState([]);
   const [shouldWater, setShouldWater] = useState(false);
   const [modalIsOpen, setIsOpen] = React.useState(false);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const shouldIWater = () => {
     return myPlants.some((myPlant) => {
+      console.log(myPlant)
       const interval = myPlant.plantInfo.water.split(' ')[0];
       const new_date = moment(myPlant.lastWatered).add(interval, 'days');
       const current = moment();
@@ -28,19 +31,20 @@ export default function App() {
     });
   };
   // usePushNotifications();
+  useEffect(() => {
+    let waterOrNot = shouldIWater();
+    getMyPlants();
+    setShouldWater(waterOrNot);
+  }, []);
 
-  // useEffect(() => {
-  //   getMyPlants();
-  //   setShouldWater(shouldIWater());
-  // }, []);
-
-  // useEffect(() => {
-  //   setShouldWater(shouldIWater());
-  // }, [myPlants]);
+  useEffect(() => {
+    let waterOrNot = shouldIWater();
+    setShouldWater(waterOrNot);
+  }, [myPlants]);
 
   const getMyPlants = () => {
     ApiService.getMyPlants().then((data) => {
-      setMyPlants(data);
+      setMyPlants((myPlants) => [...myPlants]);
     });
   };
 
@@ -109,41 +113,50 @@ export default function App() {
     setIsOpen(false);
   }
   return (
+    /*     <Stack.Screen name="Home">
+  {props => <HomeScreen {...props} extraData={someData} />}
+</Stack.Screen> */
     <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen
-          name="Home"
-          component={HomeScreen}
-          options={{ title: 'Welcome' }}
-        />
-        <Stack.Screen name="Profile" component={ProfileScreen} />
-        <Stack.Screen name="My-Plants" component={MyPlantsScreen}
-        myPlants={myPlants}
-        shouldWater={shouldWater}
-        getMyPlants={getMyPlants}
-        updateMyPlant={updateMyPlant}
-        deleteMyPlant={deleteMyPlant}
-        modalIsOpen={modalIsOpen}
-        openModal={openModal}
-        closeModal={closeModal}/>
-      </Stack.Navigator>
+      <Tab.Navigator>
+        <Tab.Screen name="Home">
+          {(props) => <HomeScreen {...props} loading={loading} />}
+        </Tab.Screen>
+        <Tab.Screen name="Plants">
+          {(props) => (
+            <Search
+              {...props}
+              shouldIWater={shouldIWater}
+              plants={plants}
+              filterPlants={filterPlants}
+              emptyFilter={emptyFilter}
+            />
+          )}
+        </Tab.Screen>
+        <Tab.Screen name="MyPlants">
+          {(props) => (
+            <MyPlants
+              {...props}
+              myPlants={myPlants}
+              shouldWater={shouldWater}
+              getMyPlants={getMyPlants}
+              updateMyPlant={updateMyPlant}
+              deleteMyPlant={deleteMyPlant}
+              modalIsOpen={modalIsOpen}
+              openModal={openModal}
+              closeModal={closeModal}
+            />
+          )}
+        </Tab.Screen>
+        {/*   <Tab.Screen name="AddPlant">
+          {(props) => (
+            <AddPlant
+              {...props}
+              createMyPlant={createMyPlant}
+              shouldWater={shouldWater}
+            />
+          )}
+        </Tab.Screen> */}
+      </Tab.Navigator>
     </NavigationContainer>
   );
 }
-/* export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-}); */

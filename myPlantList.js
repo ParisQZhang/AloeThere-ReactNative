@@ -1,35 +1,19 @@
 import React from 'react';
 import { Text, View } from 'react-native';
+import { FlatList } from 'react-native-gesture-handler';
+import ListItem from './ListItem';
 
-function MyPlantList({
-  myPlants,
-  updateMyPlant,
-  getMyPlants,
-  updatePlantStatus,
-  shouldWater,
-  deleteMyPlant,
-  modalIsOpen,
-  openModal,
-  closeModal,
-}) {
+function MyPlantList({ myPlants }) {
+  myPlants = myPlants.sort(
+    (a, b) => new Date(a.lastWatered) - new Date(b.lastWatered)
+  );
+
   return (
     <View>
-      {myPlants
-        .sort((a, b) => new Date(a.lastWatered) - new Date(b.lastWatered))
-        .map((myPlant) => (
-          <MyPlantItem
-            key={myPlant._id}
-            myPlant={myPlant}
-            updateMyPlant={updateMyPlant}
-            getMyPlants={getMyPlants}
-            updatePlantStatus={updatePlantStatus}
-            shouldWater={shouldWater}
-            deleteMyPlant={deleteMyPlant}
-            modalIsOpen={modalIsOpen}
-            openModal={openModal}
-            closeModal={closeModal}
-          />
-        ))}
+      <FlatList
+        data={myPlants}
+        renderItem={({ item }) => <ListItem item={item} />}
+      ></FlatList>
     </View>
   );
 }
