@@ -3,6 +3,7 @@ import moment from 'moment';
 import HomeScreen from './HomeScreen';
 import Search from './Search';
 import ApiService from './ApiService.js';
+import Icon from 'react-native-vector-icons/Ionicons';
 // import Notification from './Notification';
 import AddPlant from './AddPlant';
 import MyPlants from './MyPlants';
