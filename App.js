@@ -5,7 +5,6 @@ import AllPlants from './AllPlants';
 import ApiService from './ApiService.js';
 import { Ionicons } from '@expo/vector-icons';
 // import Notification from './Notification';
-import AddPlant from './AddPlant';
 import MyPlants from './MyPlants';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -45,8 +44,8 @@ export default function App() {
   }, [myPlants]);
 
   const getMyPlants = () => {
-    ApiService.getMyPlants().then((data) => {
-      setMyPlants(data);
+    ApiService.getMyPlants().then(() => {
+      setMyPlants((myPlants) => [...myPlants]);
     });
   };
 
