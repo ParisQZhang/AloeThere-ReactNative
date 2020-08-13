@@ -52,6 +52,7 @@ const ListItem = ({ item }) => {
         <View style={styles.textContainer}>
           <Text style={styles.title}>{item.nickName}</Text>
           <Text style={styles.subTitle}>{item.commonName}</Text>
+          <Text style={styles.subTitle}>{item.plantInfo.water}</Text>
         </View>
       </View>
     </TouchableOpacity>

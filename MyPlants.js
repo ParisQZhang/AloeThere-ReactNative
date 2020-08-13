@@ -2,17 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import MyPlantList from './myPlantList.js';
 
-function MyPlants({
-  myPlants,
-  getMyPlants,
-  updateMyPlant,
-  updatePlantStatus,
-  shouldWater,
-  deleteMyPlant,
-  modalIsOpen,
-  openModal,
-  closeModal,
-}) {
+function MyPlants({ myPlants, getMyPlants }) {
   const styles = StyleSheet.create({
     container: {
       backgroundColor: 'white',
@@ -36,17 +26,7 @@ function MyPlants({
         <View style={styles.container}>
           <Text style={styles.title}>Welcome back to your plant fam!</Text>
           <Text style={styles.paraText}>Check the watering schedule</Text>
-          <MyPlantList
-            myPlants={myPlants}
-            updateMyPlant={updateMyPlant}
-            getMyPlants={getMyPlants}
-            updatePlantStatus={updatePlantStatus}
-            shouldWater={shouldWater}
-            deleteMyPlant={deleteMyPlant}
-            modalIsOpen={modalIsOpen}
-            openModal={openModal}
-            closeModal={closeModal}
-          />
+          <MyPlantList myPlants={myPlants} getMyPlants={getMyPlants} />
         </View>
       ) : (
         <View>

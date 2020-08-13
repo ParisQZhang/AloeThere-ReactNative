@@ -4,7 +4,7 @@ import HomeScreen from './HomeScreen';
 import AllPlants from './AllPlants';
 import ApiService from './ApiService.js';
 import { Ionicons } from '@expo/vector-icons';
-// import Notification from './Notification';
+import Notifications from './timeNotification';
 import MyPlants from './MyPlants';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -15,7 +15,6 @@ export default function App() {
   const [plants, setPlants] = useState([]);
   const [myPlants, setMyPlants] = useState([]);
   const [shouldWater, setShouldWater] = useState(false);
-  const [modalIsOpen, setIsOpen] = React.useState(false);
   const [loading, setLoading] = useState(true);
 
   const shouldIWater = () => {
@@ -28,7 +27,7 @@ export default function App() {
       return diff < 0 ? true : false;
     });
   };
-  // usePushNotifications();
+  Notifications();
   useEffect(() => {
     let waterOrNot = shouldIWater();
     getMyPlants();
@@ -44,42 +43,14 @@ export default function App() {
   }, [myPlants]);
 
   const getMyPlants = () => {
-    ApiService.getMyPlants().then(() => {
-      setMyPlants((myPlants) => [...myPlants]);
-    });
-  };
-
-  const updateMyPlant = (id, lastWatered) => {
-    let data = { id, lastWatered };
-    ApiService.editMyPlant(data).then(() => {
-      const newPlants = myPlants.map((myPlant) => {
-        if (myPlant._id === id) {
-          return { ...myPlant, lastWatered };
-        }
-        return myPlant;
+    ApiService.getMyPlants().then((data) => {
+      console.log('data', myPlants.length);
+      setMyPlants((myPlants) => {
+        console.log('myPlants', myPlants.length);
+        return [...data];
       });
-      setMyPlants(newPlants);
     });
   };
-
-  const deleteMyPlant = (id) => {
-    ApiService.deleteMyPlant(id).then(() => {
-      const newPlants = myPlants.filter((myPlant) => {
-        if (myPlant._id !== id) {
-          return myPlant;
-        }
-      });
-      setMyPlants(newPlants);
-    });
-  };
-
-  function openModal() {
-    setIsOpen(true);
-  }
-
-  function closeModal() {
-    setIsOpen(false);
-  }
 
   return (
     <NavigationContainer>
@@ -118,11 +89,6 @@ export default function App() {
               myPlants={myPlants}
               shouldWater={shouldWater}
               getMyPlants={getMyPlants}
-              updateMyPlant={updateMyPlant}
-              deleteMyPlant={deleteMyPlant}
-              modalIsOpen={modalIsOpen}
-              openModal={openModal}
-              closeModal={closeModal}
             />
           )}
         </Tab.Screen>
