@@ -19,6 +19,7 @@ export default function App() {
 
   const shouldIWater = () => {
     return myPlants.some((myPlant) => {
+      console.log(myPlant)
       const interval = myPlant.plantInfo.water.split(' ')[0];
       const new_date = moment(myPlant.lastWatered).add(interval, 'days');
       const current = moment();
@@ -51,6 +52,15 @@ export default function App() {
       });
     });
   };
+
+
+  function openModal() {
+    setIsOpen(true);
+  }
+
+  function closeModal() {
+    setIsOpen(false);
+  }
 
   return (
     <NavigationContainer>

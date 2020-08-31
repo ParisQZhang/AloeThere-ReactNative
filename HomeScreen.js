@@ -38,6 +38,7 @@ const HomeScreen = ({ navigation }) => {
       </Text>
     </View>
   );
+  
 };
 
 const styles = StyleSheet.create({

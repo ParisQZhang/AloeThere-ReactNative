@@ -4,8 +4,8 @@ const Schema = mongoose.Schema;
 const UserPlantSchema = new Schema({
   nickName: { type: String, required: true },
   commonName: { type: String, required: true },
-  lastWatered: { type: Date, required: true },
-  bought: { type: Date, required: true },
+  lastWatered: { type: Date, required: false, default: Date.now()},
+  bought: { type: Date, required: true, default: Date.now() },
   plantInfo: { type: Schema.Types.ObjectId, ref: "Plants" },
 })
 
