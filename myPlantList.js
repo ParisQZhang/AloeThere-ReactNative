@@ -13,6 +13,7 @@ function MyPlantList({ myPlants }) {
       <FlatList
         data={myPlants}
         renderItem={({ item }) => <ListItem item={item} />}
+        keyExtractor={(item) => item._id}
       ></FlatList>
     </View>
   );

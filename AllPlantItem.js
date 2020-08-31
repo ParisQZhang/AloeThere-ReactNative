@@ -1,5 +1,12 @@
 import React from 'react';
-import { StyleSheet, Image, View, Text, TouchableOpacity } from 'react-native';
+import {
+  StyleSheet,
+  ScrollView,
+  Image,
+  View,
+  Text,
+  TouchableOpacity,
+} from 'react-native';
 
 const ListItem = ({ item }) => {
   const styles = StyleSheet.create({
@@ -7,7 +14,8 @@ const ListItem = ({ item }) => {
       backgroundColor: 'white',
       alignItems: 'center',
       margin: '5%',
-      padding: 25,
+      width: 350,
+      padding: 10,
       display: 'flex',
       flexDirection: 'row',
       shadowColor: '#000',
@@ -18,20 +26,12 @@ const ListItem = ({ item }) => {
       shadowOpacity: 0.25,
       shadowRadius: 3.84,
     },
-    textContainer: {
-      alignItems: 'center',
-      padding: 20,
-      display: 'flex',
-    },
-
-    title: {
-      paddingBottom: 20,
-      fontWeight: 'bold',
-      fontSize: 25,
-    },
 
     subTitle: {
+      flex: 1,
       paddingBottom: 20,
+      flexWrap: 'wrap',
+      padding: 30,
       fontSize: 18,
     },
 
@@ -45,15 +45,8 @@ const ListItem = ({ item }) => {
   return (
     <TouchableOpacity key={item._id}>
       <View style={styles.container}>
-        <Image
-          source={{ url: item.plantInfo.imgUrl }}
-          style={styles.image}
-        ></Image>
-        <View style={styles.textContainer}>
-          <Text style={styles.title}>{item.nickName}</Text>
-          <Text style={styles.subTitle}>{item.commonName}</Text>
-          <Text style={styles.subTitle}>{item.plantInfo.water}</Text>
-        </View>
+        <Image source={{ url: item.imgUrl }} style={styles.image}></Image>
+        <Text style={styles.subTitle}>{item.commonName}</Text>
       </View>
     </TouchableOpacity>
   );

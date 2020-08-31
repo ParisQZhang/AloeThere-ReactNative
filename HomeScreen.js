@@ -14,7 +14,8 @@ const HomeScreen = ({ navigation }) => {
       <View style={styles.button}>
         <Button
           type="button"
-          onPress={() => navigation.navigate('MyPlants')}
+          color="white"
+          onPress={() => navigation.navigate('My Plants')}
           title="Check on them"
         >
           <Text style={styles.buttonText}>Check on them</Text>
@@ -23,7 +24,8 @@ const HomeScreen = ({ navigation }) => {
       <View style={styles.button}>
         <Button
           type="button"
-          onPress={() => navigation.navigate('AddPlant')}
+          color="white"
+          onPress={() => navigation.navigate('All Plants')}
           title="Find your next plant"
         >
           Find your next plant
@@ -43,6 +45,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: 'white',
     alignItems: 'center',
+    paddingTop: 100,
   },
   title: {
     margin: 20,
@@ -52,15 +55,18 @@ const styles = StyleSheet.create({
     fontSize: 30,
   },
   subTitle: {
+    paddingBottom: 20,
     fontWeight: 'bold',
     fontSize: 18,
   },
   button: {
     backgroundColor: '#00BFA6',
     margin: 5,
+    width: 200,
   },
   buttonText: {
     color: 'white',
+    fontWeight: 'bold',
   },
   image: {
     width: 300,

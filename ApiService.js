@@ -1,4 +1,4 @@
-const BASE_URL = 'http://localhost:3001';
+const BASE_URL = 'http://MacBook-Pro.local:3001';
 
 function getPlants() {
   return fetch(BASE_URL + '/plants').then((response) => response.json());
